@@ -1,0 +1,12 @@
+name: pulumi-argocd
+description: Pulumi with ArgoCD
+main: src/main.ts
+runtime:
+  name: nodejs
+  options:
+    typescript: true
+    packagemanager: npm
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: typescript
