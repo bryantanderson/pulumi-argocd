@@ -7,7 +7,6 @@ async function main() {
 
   const k8sProvider = new k8s.Provider("k8s-provider", {
     // Defaults to using kubeconfig at $HOME/.kube/config
-    context: config.kubernetesContext,
     renderYamlToDirectory: config.renderYamlToDirectory,
   });
 
