@@ -1,2 +1,3 @@
 config:
+  kubernetes:CONTEXT: 'minikube'
   kubernetes:MANIFESTS_DIR: './manifests'

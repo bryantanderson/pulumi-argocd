@@ -1,14 +1,13 @@
 import * as k8s from "@pulumi/kubernetes";
-import * as pulumi from "@pulumi/pulumi";
 import { deployArgoCD } from "./argocd/argocd";
+import { getConfig } from "./config";
 
 async function main() {
-  const config = new pulumi.Config();
-
-  const renderYamlToDirectory = config.get("kubernetes:MANIFESTS_DIR") ?? "./manifests";
+  const config = getConfig();
 
   const k8sProvider = new k8s.Provider("k8s-provider", {
-    renderYamlToDirectory,
+    context: config.kubernetesContext,
+    renderYamlToDirectory: config.renderYamlToDirectory,
   });
 
   deployArgoCD(k8sProvider);
