@@ -5,7 +5,7 @@ import { deployArgoCD } from "./argocd/argocd";
 async function main() {
   const config = new pulumi.Config();
 
-  const renderYamlToDirectory = config.get("MANIFESTS_DIR") ?? "./manifests";
+  const renderYamlToDirectory = config.get("kubernetes:MANIFESTS_DIR") ?? "./manifests";
 
   const k8sProvider = new k8s.Provider("k8s-provider", {
     renderYamlToDirectory,

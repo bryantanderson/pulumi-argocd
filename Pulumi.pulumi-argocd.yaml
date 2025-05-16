@@ -1,2 +1,2 @@
 config:
-  MANIFESTS_DIR: './manifests'
+  kubernetes:MANIFESTS_DIR: './manifests'
