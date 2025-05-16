@@ -12,6 +12,7 @@ function deployCertManager(k8sProvider: k8s.Provider) {
   );
 
   // Ref: https://artifacthub.io/packages/helm/cert-manager/cert-manager
+  // controller that actually talks to CAs, solves challenges and keeps certificates renewed
   const chart = new k8s.helm.v3.Chart(
     `cert-manager`,
     {
@@ -33,6 +34,11 @@ function deployCertManager(k8sProvider: k8s.Provider) {
       dependsOn: [namespace],
     }
   );
+
+  // TODO: Use LetsEncrypt as the CA for certificates
+  // config object that tells CertManager which CA to use and how to solve the ACME challenge.
+
+  // TODO: Whatever Certificates
 
   return {
     chart,
