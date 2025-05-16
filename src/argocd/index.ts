@@ -54,6 +54,10 @@ function deployArgoCD(k8sProvider: k8s.Provider) {
               sshPrivateKey: process.env.GITHUB_SSH_PRIVATE_KEY,
             },
           ],
+          secret: {
+            createSecret: true,
+            argocdServerAdminPassword: process.env.ARGO_CD_SERVER_ADMIN_PASSWORD_BCRYPT_HASH,
+          },
         },
       },
     },
@@ -80,7 +84,7 @@ function deployArgoCD(k8sProvider: k8s.Provider) {
           path: "manifests",
         },
         destination: {
-          server: "http://kubernetes.default.svc.cluster.local",
+          server: "https://kubernetes.default.svc",
           namespace: "default",
         },
         syncPolicy: {
