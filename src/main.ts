@@ -1,6 +1,6 @@
 import * as k8s from "@pulumi/kubernetes";
 import * as pulumi from "@pulumi/pulumi";
-import { deployArgoCD } from "./argocd";
+import { deployArgoCD } from "./argocd/argocd";
 
 async function main() {
   const config = new pulumi.Config();
