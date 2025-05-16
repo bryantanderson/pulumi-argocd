@@ -52,6 +52,52 @@ function deployArgoCD(k8sProvider: k8s.Provider) {
     { provider: k8sProvider }
   );
 
+  // Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#applications
+  // Full configuration in ./application.yaml
+  new k8s.apiextensions.CustomResource(
+    "argocd-pulumi-application",
+    {
+      apiVersion: "argoproj.io/v1alpha1",
+      kind: "Application",
+      metadata: {
+        name: "argocd-pulumi-application",
+        namespace: namespace.metadata.name,
+      },
+      spec: {
+        project: "default",
+        revisionHistoryLimit: 10,
+        source: {
+          repoURL: "https://github.com/bryantanderson/pulumi-argocd",
+          targetRevision: "HEAD",
+          path: "manifests",
+        },
+        destination: {
+          server: "http://kubernetes.default.svc",
+          namespace: "default",
+        },
+        syncPolicy: {
+          automated: {
+            prune: true,
+            selfHeal: true,
+            allowEmpty: false,
+          },
+          syncOptions: ["CreateNamespace=true"],
+          retry: {
+            limit: 10,
+            backoff: {
+              duration: "5s",
+              factor: 2,
+              maxDuration: "10m",
+            },
+          },
+        },
+      },
+    },
+    {
+      provider: k8sProvider,
+    }
+  );
+
   return {
     chart,
     namespace,
