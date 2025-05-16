@@ -46,9 +46,3 @@ rules:
   verbs:
   - create
   - list
-- apiGroups:
-  - ""
-  resources:
-  - pods/exec
-  verbs:
-  - create

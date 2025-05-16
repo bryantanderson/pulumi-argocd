@@ -34,12 +34,6 @@ rules:
   verbs:
   - get
 - apiGroups:
-  - ""
-  resources:
-  - pods/exec
-  verbs:
-  - create
-- apiGroups:
   - argoproj.io
   resources:
   - applications

@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-pulumi-application
+  namespace: argocd
+spec:
+  destination:
+    namespace: default
+    server: http://kubernetes.default.svc
+  project: default
+  revisionHistoryLimit: 10
+  source:
+    path: manifests
+    repoURL: https://github.com/bryantanderson/pulumi-argocd
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      allowEmpty: false
+      prune: true
+      selfHeal: true
+    retry:
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 10m
+      limit: 10
+    syncOptions:
+    - CreateNamespace=true

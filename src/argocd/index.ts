@@ -44,8 +44,16 @@ function deployArgoCD(k8sProvider: k8s.Provider) {
         configs: {
           cm: {
             create: true,
-            "exec.enabled": true,
           },
+          params: {
+            "server.insecure": true,
+          },
+          repositories: [
+            {
+              url: "git@github.com:bryantanderson/pulumi-argocd.git",
+              sshPrivateKey: process.env.GITHUB_SSH_PRIVATE_KEY,
+            },
+          ],
         },
       },
     },
