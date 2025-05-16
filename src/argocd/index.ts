@@ -19,10 +19,11 @@ function deployArgoCD(k8sProvider: k8s.Provider) {
         name: "repo-secret",
         namespace: namespace.metadata.name,
         labels: {
-          "argocd.argoproj.io/secret-type": "repository",
+          "argocd.argoproj.io/secret-type": "repo-creds",
         },
       },
       stringData: {
+        type: "git",
         url: "ssh://git@github.com/bryantanderson/pulumi-argocd.git",
         sshPrivateKey: process.env.GITHUB_SSH_PRIVATE_KEY || "",
       },
