@@ -80,7 +80,7 @@ function deployArgoCD(k8sProvider: k8s.Provider) {
           path: "manifests",
         },
         destination: {
-          server: "http://kubernetes.default.svc",
+          server: "http://kubernetes.default.svc.cluster.local",
           namespace: "default",
         },
         syncPolicy: {

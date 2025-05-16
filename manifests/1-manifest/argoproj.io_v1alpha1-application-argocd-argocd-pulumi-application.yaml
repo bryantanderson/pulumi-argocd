@@ -6,12 +6,12 @@ metadata:
 spec:
   destination:
     namespace: default
-    server: http://kubernetes.default.svc
+    server: http://kubernetes.default.svc.cluster.local
   project: default
   revisionHistoryLimit: 10
   source:
     path: manifests
-    repoURL: https://github.com/bryantanderson/pulumi-argocd
+    repoURL: git@github.com:bryantanderson/pulumi-argocd.git
     targetRevision: HEAD
   syncPolicy:
     automated:
