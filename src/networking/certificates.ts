@@ -59,6 +59,7 @@ function deployCertManager(k8sProvider: k8s.Provider) {
             {
               http01: {
                 ingress: {
+                  // Use Nginx ingress controller to setup the URL needed for the HTTP-01 challenge
                   ingressClassName: "nginx",
                 },
               },

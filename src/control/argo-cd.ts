@@ -75,7 +75,7 @@ function deployArgoCD(k8sProvider: k8s.Provider) {
         },
       },
     },
-    { provider: k8sProvider }
+    { provider: k8sProvider, dependsOn: [namespace] }
   );
 
   // Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#applications

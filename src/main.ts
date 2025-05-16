@@ -1,7 +1,8 @@
 import * as k8s from "@pulumi/kubernetes";
-import { deployArgoCD } from "./control/argo-cd";
 import { getConfig } from "./config";
+import { deployArgoCD } from "./control/argo-cd";
 import { deployCertManager } from "./networking/certificates";
+import { deployIngressController } from "./networking/ingress";
 
 async function main() {
   const config = getConfig();
@@ -12,6 +13,7 @@ async function main() {
   });
 
   deployArgoCD(k8sProvider);
+  deployIngressController(k8sProvider);
   deployCertManager(k8sProvider);
 
   // Dummy ConfigMap to test ArgoCD sync behavior
