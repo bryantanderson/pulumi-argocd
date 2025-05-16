@@ -35,8 +35,41 @@ function deployCertManager(k8sProvider: k8s.Provider) {
     }
   );
 
-  // TODO: Use LetsEncrypt as the CA for certificates
-  // config object that tells CertManager which CA to use and how to solve the ACME challenge.
+  // Ref: https://cert-manager.io/docs/configuration/acme/#configuration
+  // configs that represent certificate authorities (CAs) able to generate signed certificates
+  // by honoring certificate signing requests
+  new k8s.apiextensions.CustomResource(
+    `lets-encrypt-cluster-issuer`,
+    {
+      apiVersion: "cert-manager.io/v1",
+      kind: "ClusterIssuer",
+      metadata: {
+        name: `lets-encrypt-cluster-issuer`,
+        namespace: namespace.metadata.name,
+      },
+      spec: {
+        acme: {
+          email: "TODO",
+          server: "https://acme-v02.api.letsencrypt.org/directory",
+          privateKeySecretRef: {
+            // This is created by CertManager
+            name: `lets-encrypt-cluster-issuer-private-key`,
+          },
+          solvers: [
+            {
+              http01: {
+                ingress: {
+                  ingressClassName: "nginx",
+                },
+              },
+            },
+            // TODO: Maybe add a DNS01 solver for CloudFlare
+          ],
+        },
+      },
+    },
+    { provider: k8sProvider, dependsOn: [chart] }
+  );
 
   // TODO: Whatever Certificates
 
