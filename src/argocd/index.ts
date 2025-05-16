@@ -75,7 +75,7 @@ function deployArgoCD(k8sProvider: k8s.Provider) {
         project: "default",
         revisionHistoryLimit: 10,
         source: {
-          repoURL: "https://github.com/bryantanderson/pulumi-argocd",
+          repoURL: "git@github.com:bryantanderson/pulumi-argocd.git",
           targetRevision: "HEAD",
           path: "manifests",
         },
