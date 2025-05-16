@@ -1,5 +1,5 @@
 import * as k8s from "@pulumi/kubernetes";
-import { deployArgoCD } from "./argocd/argocd";
+import { deployArgoCD } from "./argocd";
 import { getConfig } from "./config";
 
 async function main() {
