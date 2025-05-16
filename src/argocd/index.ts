@@ -24,7 +24,7 @@ function deployArgoCD(k8sProvider: k8s.Provider) {
       },
       stringData: {
         type: "git",
-        url: "git@github.com:bryantanderson/pulumi-argocd.git",
+        url: "ssh://git@github.com:bryantanderson/pulumi-argocd.git",
         sshPrivateKey: process.env.GITHUB_SSH_PRIVATE_KEY || "",
       },
     },
@@ -93,7 +93,7 @@ function deployArgoCD(k8sProvider: k8s.Provider) {
         project: "default",
         revisionHistoryLimit: 10,
         source: {
-          repoURL: "git@github.com:bryantanderson/pulumi-argocd.git",
+          repoURL: "ssh://git@github.com:bryantanderson/pulumi-argocd.git",
           targetRevision: "HEAD",
           path: "manifests",
         },

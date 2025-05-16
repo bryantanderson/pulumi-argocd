@@ -11,7 +11,7 @@ spec:
   revisionHistoryLimit: 10
   source:
     path: manifests
-    repoURL: git@github.com:bryantanderson/pulumi-argocd.git
+    repoURL: ssh://git@github.com:bryantanderson/pulumi-argocd.git
     targetRevision: HEAD
   syncPolicy:
     automated:
