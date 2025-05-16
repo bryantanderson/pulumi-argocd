@@ -14,4 +14,3 @@ RUN CGO_BUILD_ENABLED=0 go build -o /simple-api
 EXPOSE 8080
 
 CMD ["/simple-api"]
-
