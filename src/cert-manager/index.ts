@@ -11,6 +11,7 @@ function deployCertManager(k8sProvider: k8s.Provider) {
     { provider: k8sProvider }
   );
 
+  // Ref: https://artifacthub.io/packages/helm/cert-manager/cert-manager
   const chart = new k8s.helm.v3.Chart(
     `cert-manager`,
     {
