@@ -6,6 +6,7 @@ async function main() {
   const config = getConfig();
 
   const k8sProvider = new k8s.Provider("k8s-provider", {
+    // Defaults to using kubeconfig at $HOME/.kube/config
     context: config.kubernetesContext,
     renderYamlToDirectory: config.renderYamlToDirectory,
   });
@@ -13,6 +14,4 @@ async function main() {
   deployArgoCD(k8sProvider);
 }
 
-main().catch((error) => {
-  console.trace(`Fatal error in main(): ${JSON.stringify(error, null, 2)}`);
-});
+main()
