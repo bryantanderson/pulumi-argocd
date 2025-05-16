@@ -11,6 +11,26 @@ function deployArgoCD(k8sProvider: k8s.Provider) {
     { provider: k8sProvider }
   );
 
+  // Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#repository-credentials
+  new k8s.core.v1.Secret(
+    "argocd-repo-ssh-secret",
+    {
+      metadata: {
+        name: "repo-secret",
+        namespace: namespace.metadata.name,
+        labels: {
+          "argocd.argoproj.io/secret-type": "repository",
+        },
+      },
+      stringData: {
+        type: "git",
+        url: "git@github.com:bryantanderson/pulumi-argocd.git",
+        sshPrivateKey: process.env.GITHUB_SSH_PRIVATE_KEY || "",
+      },
+    },
+    { provider: k8sProvider, dependsOn: [namespace] }
+  );
+
   const chart = new k8s.helm.v3.Chart(
     "argocd",
     {
@@ -48,12 +68,6 @@ function deployArgoCD(k8sProvider: k8s.Provider) {
           params: {
             "server.insecure": true,
           },
-          repositories: [
-            {
-              url: "git@github.com:bryantanderson/pulumi-argocd.git",
-              sshPrivateKey: process.env.GITHUB_SSH_PRIVATE_KEY,
-            },
-          ],
           secret: {
             createSecret: true,
             argocdServerAdminPassword: process.env.ARGO_CD_SERVER_ADMIN_PASSWORD_BCRYPT_HASH,
