@@ -1,7 +1,7 @@
 import * as k8s from "@pulumi/kubernetes";
-import { deployArgoCD } from "./argocd";
+import { deployArgoCD } from "./control/argo-cd";
 import { getConfig } from "./config";
-import { deployCertManager } from "./cert-manager";
+import { deployCertManager } from "./networking/certificates";
 
 async function main() {
   const config = getConfig();
