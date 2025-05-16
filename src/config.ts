@@ -6,7 +6,7 @@ function getConfig(): Config {
   const kubernetesConfig = new pulumi.Config("kubernetes");
 
   return {
-    renderYamlToDirectory: kubernetesConfig.get("MANIFESTS_DIR") ?? "./manifests",
+    renderYamlToDirectory: kubernetesConfig.get("MANIFESTS_DIR") ?? "../manifests",
   };
 }
 
