@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  namespace: app-namespace
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+      namespace: app-namespace
+    spec:
+      containers:
+      - image: bryantandersonc/pulumi-argocd-sample-api:latest
+        name: api
+        ports:
+        - containerPort: 8080
+          protocol: TCP

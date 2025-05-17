@@ -1,6 +1,6 @@
 name: pulumi-argocd
 description: Pulumi with ArgoCD
-main: src/main.ts
+main: infra/src/main.ts
 runtime:
   name: nodejs
   options:
