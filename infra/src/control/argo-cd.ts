@@ -96,6 +96,9 @@ function deployArgoCD(k8sProvider: k8s.Provider) {
           repoURL: "ssh://git@github.com/bryantanderson/pulumi-argocd.git",
           targetRevision: "HEAD",
           path: "infra/manifests",
+          directory: {
+            recurse: true,
+          },
         },
         destination: {
           server: "https://kubernetes.default.svc",
