@@ -36,6 +36,45 @@ function deployIngressController(k8sProvider: k8s.Provider) {
     }
   );
 
+  new k8s.networking.v1.Ingress(
+    `ingress-rules`,
+    {
+      metadata: {
+        name: `ingress-rules`,
+        namespace: namespace.metadata.name,
+        annotations: {
+          // Rewrites incoming URL path to "/" before sending to the backend
+          "nginx.ingress.kubernetes.io/rewrite-target": "/",
+        },
+      },
+      spec: {
+        ingressClassName: "nginx",
+        rules: [
+          {
+            // no host field to match all hostnames
+            http: {
+              paths: [
+                {
+                  path: "/",
+                  pathType: "Prefix",
+                  backend: {
+                    service: {
+                      name: "api-svc",
+                      port: {
+                        number: 80,
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    { provider: k8sProvider, dependsOn: [chart] }
+  );
+
   return {
     chart,
     namespace,

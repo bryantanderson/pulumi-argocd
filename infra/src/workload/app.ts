@@ -73,7 +73,7 @@ function deployApps(k8sProvider: k8s.Provider) {
         ports: [
           {
             protocol: "TCP",
-            port: 8080,
+            port: 80,
             targetPort: 8080,
           },
         ],
