@@ -3,6 +3,7 @@ import { getConfig } from "./config";
 import { deployArgoCD } from "./control/argo-cd";
 import { deployCertManager } from "./networking/certificates";
 import { deployIngressController } from "./networking/ingress";
+import { deployApps } from "./workload/app";
 
 async function main() {
   const config = getConfig();
@@ -15,6 +16,7 @@ async function main() {
   deployArgoCD(k8sProvider);
   deployIngressController(k8sProvider);
   deployCertManager(k8sProvider);
+  deployApps(k8sProvider);
 
   // Dummy ConfigMap to test ArgoCD sync behavior
   if (process.env.DUMMY_CONFIG_MAP_ENABLED) {
